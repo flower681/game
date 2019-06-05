@@ -3,7 +3,4 @@ Runtime
 runtime
 .idea
 .DS_Store
-rsa_key
-application/database.php
-application/config.php
 setTime/log
