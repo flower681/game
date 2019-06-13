@@ -22,6 +22,10 @@ class ComposerStaticInit51bf2b6098a397dcb30d39d1daad4806
         array (
             'Workerman\\' => 10,
         ),
+        'G' => 
+        array (
+            'GatewayWorker\\' => 14,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
@@ -46,6 +50,10 @@ class ComposerStaticInit51bf2b6098a397dcb30d39d1daad4806
         array (
             0 => __DIR__ . '/..' . '/workerman/workerman',
             1 => __DIR__ . '/..' . '/workerman/workerman-for-win',
+        ),
+        'GatewayWorker\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/workerman/gateway-worker-for-win/src',
         ),
     );
 
