@@ -28,7 +28,8 @@ class Base extends Controller
         //判断两个人不能同时登录
         $userInfo = db('user')->where(array('username'=>$user))->find();
         if (session_id() != $userInfo['session_id'] || $userInfo == ''){
-            $this->error('您的登录状态已过期,请重新登录!','Login/index');
+//            $this->error('您的登录状态已过期,请重新登录!','Login/index');
+            $this->redirect('Login/index');
         }
         //赋值用户信息
         $this->userInfo = $userInfo;
