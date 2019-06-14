@@ -7,6 +7,9 @@ use app\admin\model\StockModel;
 use app\admin\model\NoticeModel;
 use app\admin\model\UserLogModel;
 use app\admin\model\MoneyLogModel;
+use app\admin\model\ChatUserModel;
+use app\admin\model\ChatMsgModel;
+use think\Request;
 
 class Index extends Base
 {
@@ -125,6 +128,150 @@ class Index extends Base
         // 渲染模板输出
         return $this->fetch('helpWeb');
     }
+
+	/**
+	 * 群聊
+	 */
+	public function chatAll()
+	{
+		$list = Db::name('config')->where(['key'=>'chat'])->find()['value'];
+		$list['username'] = session('username');
+		$list['id'] = session('id');
+//		$list['client_id'] =
+		//输出信息
+		$this ->assign('data',$list);
+//		return $this->fetch('chatRoom');
+		return $this->fetch('chatAll');
+	}
+
+	/**
+	 * 单聊
+	 */
+	public function chatOne()
+	{
+		$list = Db::name('config')->where(['key'=>'chat'])->find()['value'];
+		$list['username'] = session('username');
+		$list['id'] = session('id');
+		$list['time'] = date('Y-m-d H:m:s',time());
+//		//输出信息
+		$this ->assign('data',$list);
+//		return $this->fetch('chatRoom');
+		return $this->fetch('chatOne');
+	}
+
+	/**
+	 * 私信
+	 */
+	public function privateMsg(){
+		return $this->fetch();
+	}
+	/**
+	 * 获取用户登录信息
+	 */
+	public function user()
+	{
+
+		$list['username'] = session('username');
+		$list['id'] = session('id');
+		$list['time'] = date('Y-m-d H:m:s',time());
+		//输出信息
+		return $list;
+	}
+
+	/**
+	 * 获取chatuser表中所有的信息
+	 */
+	public function getUser()
+	{
+		$chatuser = new ChatUserModel();
+		$user = $chatuser->getUser();
+		return $user;
+	}
+
+
+	/**
+	 * 登录将用户信息保存在数据库中
+	 *
+	 */
+	public function send(Request $request)
+	{
+		$client_id = $request->post('client_id');
+		$client_name= $request->post('client_name');
+		$user_id= session('id');
+		$data = ['user_id'=>$user_id,'name'=>$client_name,'client_id'=>$client_id];
+//		将数据入库
+//		return $data;
+		$chatuser = new ChatUserModel();
+		$user = $chatuser->selectUser($user_id);
+//		return $user;
+		if(!$user)
+		{
+			$ret = $chatuser->insertUser($data);
+			if ($ret['code'] == 1){
+
+				return json(['code' => 1, 'data' => array(), 'msg' => '成功']);
+
+			}
+
+			return json(['code' => -1, 'data' => array(), 'msg' => '失败']);
+		}
+
+	}
+	/**
+	 * 发送消息
+	 * 将消息存入数据库中
+	 */
+	public function msg(Request $request)
+	{
+//		获取信息
+		$data = $request->post();
+//		return $data;
+		$fuid = $data['from_client_id'];
+		$tuid = $data['to_client_id'];
+		$fname = $data['fname'];
+		$tname = $data['to_client_name'];
+		$content = $data['content'];
+		$send_time = date('Y-m-d H:i:s',time());
+//		return $send_time;
+		$chatmsg = new ChatMsgModel();
+		$arr = ['fuid'=>$fuid,'tuid'=>$tuid,'content'=>$content,'send_time'=>$send_time,'fname'=>$fname,'tname'=>$tname];
+//		return $arr;
+		$ret = $chatmsg->insertMsg($arr);
+//		return $ret;
+		//返回值判断
+		if ($ret['code'] == 1){
+
+			return json(['code' => 1, 'data' => array(), 'msg' => '成功']);
+
+		}
+
+		return json(['code' => -1, 'data' => array(), 'msg' => '失败']);
+//		return $data;
+	}
+
+	/**
+	 * 获取群聊数据
+	 */
+	public function getAllMsg(){
+		$chatmsg = new ChatMsgModel();
+		$ret = $chatmsg->getAllMsg();
+
+		return $ret;
+	}
+
+	/**
+	 * 获取单聊数据
+	 */
+	public function getOneMsg(Request $request){
+		$select_client_id = $request->get('select_client_id');
+		$from_client_id = $request->get('from_client_id');
+//		return $from_client_id;
+		$chatmsg = new ChatMsgModel();
+		$ret = $chatmsg->getOneMsg($select_client_id,$from_client_id);
+
+		return $ret;
+	}
+
 
     /**
      * 免责声明WEB页

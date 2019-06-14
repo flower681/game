@@ -11,4 +11,5 @@ return array(
     'think\\captcha\\' => array($vendorDir . '/topthink/think-captcha/src'),
     'think\\' => array($vendorDir . '/topthink/framework/library/think', $vendorDir . '/topthink/think-image/src'),
     'Workerman\\' => array($vendorDir . '/workerman/workerman', $vendorDir . '/workerman/workerman-for-win'),
+    'GatewayWorker\\' => array($vendorDir . '/workerman/gateway-worker-for-win/src'),
 );

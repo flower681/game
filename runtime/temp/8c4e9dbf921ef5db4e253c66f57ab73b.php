@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:81:"E:\wamp\phpStudy\PHPTutorial\WWW\game\public/../application/admin\view\login.html";i:1556773456;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:81:"E:\wamp\phpStudy\PHPTutorial\WWW\game\public/../application/admin\view\login.html";i:1559721731;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

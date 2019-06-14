@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:88:"E:\wamp\phpStudy\PHPTutorial\WWW\game\public/../application/admin\view\user\userAdd.html";i:1555037308;s:72:"E:\wamp\phpStudy\PHPTutorial\WWW\game\application\admin\view\header.html";i:1532410270;s:72:"E:\wamp\phpStudy\PHPTutorial\WWW\game\application\admin\view\footer.html";i:1532410270;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:88:"E:\wamp\phpStudy\PHPTutorial\WWW\game\public/../application/admin\view\user\userAdd.html";i:1559721731;s:72:"E:\wamp\phpStudy\PHPTutorial\WWW\game\application\admin\view\header.html";i:1559721731;s:72:"E:\wamp\phpStudy\PHPTutorial\WWW\game\application\admin\view\footer.html";i:1559721731;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
